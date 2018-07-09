@@ -25,3 +25,5 @@ if(MSVC)
 else()
     install(TARGETS unio_analyzer LIBRARY DESTINATION ".")
 endif()
+
+set_post_build_destination(unio_analyzer)
