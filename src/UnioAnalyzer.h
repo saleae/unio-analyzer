@@ -15,7 +15,7 @@ enum UnioTransactionResult { TransactionNormal, TransactionError };
 enum UnioSlaveAcknowledge { Sak, NoSak };
 enum UnioMasterAcknowledge { Mak, NoMak };
 
-class ANALYZER_EXPORT UnioAnalyzer : public Analyzer2
+class UnioAnalyzer : public Analyzer2
 {
 public:
 	UnioAnalyzer();
