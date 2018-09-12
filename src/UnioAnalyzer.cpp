@@ -137,6 +137,25 @@ void UnioAnalyzer::GetTransaction()
 		frame.mStartingSampleInclusive = start_of_byte;
 		frame.mEndingSampleInclusive = mBitStartingSample - 1;
 
+		if( start_of_byte == mBitStartingSample && byte_result == ByteValid )
+		{
+			//Hack - the analyzer usually crashes if it attempts to read a byte when the signal is actually idle.
+			//the signal never changed state while trying to read the byte.
+			//it's likely that the last byte forgot to indicate NoMak, and we just tried to decode blank data.
+			U64 byte_end = start_of_byte + mSamplesPerBit * 9;
+			mScio->AdvanceToAbsPosition( start_of_byte + mSamplesPerBit * 9 ); //hack, lets try to jump past this and move on.
+			frame.mEndingSampleInclusive = byte_end;
+			mBitStartingSample = byte_end;
+			frame.mType = U8( ErrorNoMakRequired );
+			frame.mFlags = 0;
+			mResults->AddFrame( frame );
+			mResults->CommitResults( );
+			//normal termination of sequence
+			MoveToNextStartHeaderAfterNoMakSak( );
+			mResults->CommitPacketAndStartNewPacket( );
+			return;
+		}
+
 		//backwards
 		if( frame.mStartingSampleInclusive >= frame.mEndingSampleInclusive )
 			AnalyzerHelpers::Assert( "" );

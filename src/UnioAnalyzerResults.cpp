@@ -101,6 +101,12 @@ void UnioAnalyzerResults::GenerateBubbleText( U64 frame_index, Channel& /*channe
 		AddResultString( "Error" );
 		AddResultString( "Error: NoSAK is required" );
 		break;
+	case ErrorNoMakRequired:
+		AddResultString( "!" );
+		AddResultString( "Error" );
+		AddResultString( "Error: NoMak is required" );
+		AddResultString( "Error: NoMak is required at end of operation" );
+		break;
 	case InvalidBit:
 		AddResultString( "!" );
 		AddResultString( "Error" );
@@ -265,6 +271,10 @@ void UnioAnalyzerResults::GenerateFrameTabularText( U64 frame_index, DisplayBase
 
 	case ErrorNoSakRequired:
 		AddTabularText( "Error: NoSAK is required" );
+		break;
+
+	case ErrorNoMakRequired:
+		AddTabularText( "Error: NoMAK is required at end of operation" );
 		break;
 
 	case InvalidBit:

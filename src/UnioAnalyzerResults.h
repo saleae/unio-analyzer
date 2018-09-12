@@ -4,7 +4,7 @@
 #include <AnalyzerResults.h>
 
 
-enum UnioFrameType { HeaderFrame, AddressFrame8, AddressFrame12, DataFrame, InvalidBit, ErrorMakRequired, ErrorNoSakRequired };
+enum UnioFrameType { HeaderFrame, AddressFrame8, AddressFrame12, DataFrame, InvalidBit, ErrorMakRequired, ErrorNoSakRequired, ErrorNoMakRequired };
 #define SLAVE_ACK ( 1 << 0 )
 #define MASTER_ACK ( 1 << 1 )
 
